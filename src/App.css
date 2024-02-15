@@ -43,6 +43,7 @@ body {
   text-align: left;
   flex-grow: 1;
   transform: translate(10%, -5%) rotate(-15deg);
+  display: flex;
 }
 
 .notepad {
@@ -155,7 +156,7 @@ body {
   box-sizing: border-box;
   border-radius: 2px;
   margin: 0;
-  cursor: none !important;
+
   background-color: white;
 }
 
@@ -166,27 +167,16 @@ body {
   height: calc(100vh - 6em);
   border-radius: 5px;
   margin: 0;
-  cursor: none !important;
+
   background-color: rgb(255, 245, 219);
   color: dimgrey;
-  transform: translate(-80px, 40px) rotate(5deg);
+  transform: translate(-20px, 40px) rotate(5deg);
   box-shadow: 0 0 10px #363636;
 }
 
 .image > img {
   border-radius: 10px;
   border: solid grey 1px;
-}
-
-.highlighter {
-  border: 2px solid red;
-  border-radius: 0.5em;
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  pointer-events: none;
 }
 
 .magnifying-glass {
@@ -199,6 +189,10 @@ body {
 
 .magnifying-glass.circle {
   z-index: 10000;
+}
+
+.magnifier-image.magnifier-image {
+  cursor: crosshair !important;
 }
 .magnifying-glass::after {
   content: ' ';

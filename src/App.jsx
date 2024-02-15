@@ -17,6 +17,7 @@ import clock from '/audio/clock.mp3';
 import pencilSound1 from '/audio/pencil1.mp3';
 import pencilSound2 from '/audio/pencil2.mp3';
 import pencilSound3 from '/audio/pencil3.mp3';
+import Folder from './components/Folder';
 
 const api = import.meta.env.VITE_API_URL;
 
@@ -93,6 +94,7 @@ const App = () => {
           <h1>Suspects to find</h1>
           <SuspectList characters={characters} foundCharacters={foundCharacters} />
         </div>
+        <Folder />
       </div>
 
       <div className="searchArea">
