@@ -10,6 +10,13 @@ import SuspectList from './components/SuspectList';
 import Yarn from './components/Yarn';
 import AddYarn from './components/Yarn';
 import Clock from './components/Clock';
+import music from '/audio/music2.mp3';
+import ac from '/audio/ac.mp3';
+import city from '/audio/city.mp3';
+import clock from '/audio/clock.mp3';
+import pencilSound1 from '/audio/pencil1.mp3';
+import pencilSound2 from '/audio/pencil2.mp3';
+import pencilSound3 from '/audio/pencil3.mp3';
 
 const api = import.meta.env.VITE_API_URL;
 
@@ -77,7 +84,7 @@ const App = () => {
     if (foundCharacters.length === characters.length) setGameOver(true);
   }, [foundCharacters]);
 
-  const pencilSounds = ['./audio/pencil1.mp3', './audio/pencil2.mp3', './audio/pencil3.mp3'];
+  const pencilSounds = [pencilSound1, pencilSound2, pencilSound3];
 
   return (
     <div className="App">
@@ -141,13 +148,13 @@ const App = () => {
       />
 
       <video className="grain" src="./grain.mp4" autoPlay loop muted controls={false} />
-      <Speaker src="./audio/music2.mp3" volume={0.02} playing={true} allowAudio={allowAudio} loop />
-      <Speaker src="./audio/ac.mp3" volume={0.05} playing={true} allowAudio={allowAudio} loop />
-      <Speaker src="./audio/clock.mp3" volume={0.2} playing={true} allowAudio={allowAudio} loop />
-      <Speaker src="./audio/city.mp3" volume={0.1} playing={true} allowAudio={allowAudio} loop />
+      <Speaker src={music} volume={0.02} playing={true} allowAudio={allowAudio} loop />
+      <Speaker src={ac} volume={0.05} playing={true} allowAudio={allowAudio} loop />
+      <Speaker src={clock} volume={0.2} playing={true} allowAudio={allowAudio} loop />
+      <Speaker src={city} volume={0.1} playing={true} allowAudio={allowAudio} loop />
 
       <Speaker
-        src={pencilSounds}
+        src={pencilSounds[Math.floor(Math.random() * pencilSounds.length)]}
         volume={1}
         playing={pencilSoundsPlay}
         onended={() => {
