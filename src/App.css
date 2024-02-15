@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Aclonica&family=Fasthand&family=Jolly+Lodger&family=Shadows+Into+Light&display=swap');
+
+body {
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  color: white;
+  font-family: 'Shadows Into Light', cursive;
+  font-weight: 400;
+  font-style: normal;
+  background: #685952;
+  background-size: 80% 80%;
+  background-position: bottom;
+  background: linear-gradient(#403631ce, #403631ce), url('WoodGrain09-byGhostlyPixels.png'), #685952;
+  background-size: cover;
+}
+
+.grain {
+  position: absolute;
+  z-index: 1000000000;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  transform: translate(0);
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  opacity: 0.2;
+  object-fit: cover;
+  filter: invert(1);
+  mix-blend-mode: darken;
+}
+
+.App {
+  display: flex;
+  flex-direction: row;
+}
+
+.dataArea {
+  position: relative;
+  text-align: left;
+  flex-grow: 1;
+  transform: translate(10%, -5%) rotate(-15deg);
+}
+
+.notepad {
+  background-color: wheat;
+  color: black;
+  padding: 1em;
+  border-radius: 1em;
+  box-shadow: 0 0 10px #363636;
+  aspect-ratio: 1 / 2;
+  height: calc(100vh - 4em);
+}
+
+.clock {
+  position: absolute;
+  bottom: 20%;
+  left: 20%;
+}
+
+.notepad ul {
+  padding: 0;
+}
+
+.notepad h1 {
+  font-size: 2em;
+  margin: 0;
+  padding: 0;
+}
+.notepad h2 {
+  font-size: 1.5em;
+  margin: 0;
+  padding: 0;
+}
+
+.toggleAudio {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: wheat;
+  border: none;
+  border-radius: 10000px;
+}
+
+.suspect.found {
+  text-decoration: line-through;
+}
+
+.suspect > img {
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  padding: 0;
+  border-radius: 10%;
+  /* filter: hue-rotate(60deg) saturate(0%) brightness(120%) contrast(110%); */
+}
+
+.suspect {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.suspect div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  height: max-content;
+  justify-content: flex-start;
+}
+
+.suspect div h3 {
+  font-size: 1.5em;
+  margin: 0;
+  padding: 0;
+}
+
+.suspect div p {
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.characterPopUp {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.characterPopUp button {
+  background-color: wheat;
+  padding: 1em;
+  border-radius: 1em;
+  box-shadow: 0 0 10px #363636;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  object-fit: contain;
+  left: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-radius: 2px;
+  margin: 0;
+  cursor: none !important;
+  background-color: white;
+}
+
+#polaroid {
+  padding: 0.5em;
+  padding-bottom: 3em;
+  box-sizing: border-box;
+  height: calc(100vh - 6em);
+  border-radius: 5px;
+  margin: 0;
+  cursor: none !important;
+  background-color: rgb(255, 245, 219);
+  color: dimgrey;
+  transform: translate(-80px, 40px) rotate(5deg);
+  box-shadow: 0 0 10px #363636;
+}
+
+.image > img {
+  border-radius: 10px;
+  border: solid grey 1px;
+}
+
+.highlighter {
+  border: 2px solid red;
+  border-radius: 0.5em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+.magnifying-glass {
+  border-radius: 1em;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  z-index: 20;
+}
+
+.magnifying-glass.circle {
+  z-index: 10000;
+}
+.magnifying-glass::after {
+  content: ' ';
+  position: absolute;
+  bottom: calc(50% - 15px);
+  left: 50%;
+  transform-origin: left center;
+  width: 80px;
+  border-top-right-radius: 2em;
+  border-bottom-right-radius: 2em;
+  border-left: none;
+  height: 30px;
+  background-color: rgb(89, 45, 56);
+  box-shadow: 5px 5px 10px #0000006d;
+  z-index: 1000;
+  transform: rotate(60deg) translate(100%, 0%);
+}
+
+.pin {
+  width: 0;
+  height: 0;
+  background-color: red;
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 0.3s ease;
+  animation-fill-mode: forwards;
+  pointer-events: none;
+}
+
+.line {
+  box-shadow: 0px -8px 8px 0px #00000085;
+  opacity: 0;
+  border-radius: 1000px;
+  z-index: -10;
+  animation: fadeIn 0.3s ease;
+  animation-fill-mode: forwards;
+  pointer-events: none;
+}
+
+.pin img {
+  transform: translate(-25%, 25%);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.pin.absolute {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+}
+.magnifying-glass::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: calc(100%);
+  height: calc(100%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0) 30%, rgba(255, 254, 249, 0.7) 91%);
+  z-index: 10000;
+  border: solid 8px rgb(89, 45, 56);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
