@@ -122,7 +122,7 @@ const App = () => {
                 key={name}
                 className={`lineHolder${name}`}
                 style={{
-                  transform: 'translate(80px, -40px) rotate(-5deg)',
+                  transform: '',
                   position: 'absolute',
                   top: 0,
                   left: 0,

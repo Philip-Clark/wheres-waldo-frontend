@@ -85,10 +85,10 @@ export default function CharacterPopUp({
   const updateRect = (e, pos, image) => {
     const position = screenSpaceToImageSpace(e, pos, image, imageSize);
     const rect = {
-      top: position.y - 40,
-      left: position.x - 40,
-      bottom: position.y + 40,
-      right: position.x + 40,
+      top: position.y - 80,
+      left: position.x - 80,
+      bottom: position.y + 80,
+      right: position.x + 80,
     };
     setRect(rect);
     return rect;
