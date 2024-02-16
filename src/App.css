@@ -170,7 +170,7 @@ body {
 
   background-color: rgb(255, 245, 219);
   color: dimgrey;
-  transform: translate(-20px, 40px) rotate(5deg);
+  transform: translate(-20px, 10px);
   box-shadow: 0 0 10px #363636;
 }
 
