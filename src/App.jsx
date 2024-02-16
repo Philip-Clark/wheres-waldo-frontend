@@ -60,7 +60,7 @@ const App = () => {
   useEffect(() => {
     async function fetchData() {
       const puzzles = await fetch(api + '/puzzles').then((res) => res.json());
-      const puzzle = puzzles[1];
+      const puzzle = puzzles[0];
       setPuzzle(puzzle);
       const waldoImage = await fetch(`${api}/puzzle/${puzzle._id}/imageURL`).then((res) =>
         res.json()
@@ -68,7 +68,7 @@ const App = () => {
       setPuzzleID(puzzle._id);
       setWaldoImage(waldoImage);
 
-      setCharacters(puzzle.characters.sort((a, b) => (Math.random() > 0.5 ? 1 : -1)));
+      setCharacters(puzzle.characters.sort(() => (Math.random() > 0.5 ? 1 : -1)));
 
       const imageSize = await fetch(`${api}/puzzle/${puzzle._id}/imageSize`).then((res) =>
         res.json()
@@ -94,7 +94,9 @@ const App = () => {
           <h1>Suspects to find</h1>
           <SuspectList characters={characters} foundCharacters={foundCharacters} />
         </div>
-        <Folder />
+      </div>
+      <div className="deco-folder">
+        <h1>Folder</h1>
       </div>
 
       <div className="searchArea">
@@ -166,6 +168,7 @@ const App = () => {
       />
 
       <Clock restart={handleRestart} allowAudio={allowAudio} gameOver={gameOver} />
+      <Folder />
 
       <button onClick={handleAllowAudio} className="toggleAudio">
         {allowAudio ? 'pause' : 'play'} Audio

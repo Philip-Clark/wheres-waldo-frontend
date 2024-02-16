@@ -1,45 +1,191 @@
-.folder {
-  width: 400px;
-  height: 650px;
-  color: black;
-  transform: translate(-10%, 15%) rotate(12deg);
-  z-index: -1;
+.folderHolder {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  left: 40%;
-  border-radius: 15px;
-  border-top-left-radius: 3px;
   z-index: 1;
 }
-.folder::before {
-  content: ' ';
+
+.folder {
+  height: 90vh;
+  aspect-ratio: 36/22;
+  color: black;
+  z-index: -1;
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 102%;
-  height: 100%;
-  background-color: rgb(251, 236, 150);
-  border-radius: 15px;
-  border-top-left-radius: 3px;
-  z-index: -10;
+  z-index: 0;
+  transition: all 0.1s ease;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  box-sizing: border-box;
+  perspective: 5000px;
 }
 
-.folder::after {
-  content: ' ';
+.folderHolder .backdrop {
+  width: 100vw;
+  height: 100vh;
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 0;
+  background: rgba(70, 70, 70, 0.391);
+}
+
+.folder > div {
+  position: relative;
+
+  /* background: #fbeb96; */
+}
+
+.folder > div::before {
+  position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgb(251, 236, 150);
-  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5);
-  border-radius: 15px;
-  border-top-left-radius: 3px;
-  z-index: -5;
+  top: 0;
+  left: 0;
+  content: '';
+  z-index: -1;
+
+  box-shadow: 0 0 100px 0 rgba(0, 0, 0, 0.829);
 }
 
-.folder h1 {
-  font-size: 2em;
-  font-weight: 100;
-  margin: 1em;
+.folder .right::before {
+  width: 105%;
+  border-radius: 0 15px 15px 0;
+  background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.341) 0,
+      #00000023 5%,
+      rgba(251, 234, 150, 0) 100%
+    ),
+    #fbeb96;
+}
+
+.folder .left::before {
+  border-radius: 15px 0 0 15px;
+
+  background: linear-gradient(
+      -90deg,
+      rgba(0, 0, 0, 0.388) 0,
+      #00000023 5%,
+      rgba(251, 234, 150, 0) 100%
+    ),
+    #fbeb96;
+}
+.folder .left > * {
+  transition: opacity 0s linear 0.4s;
+  opacity: 1;
+}
+.folder.closed .left > * {
+  opacity: 0;
+}
+
+.folder .left {
+  transform: rotateY(0deg);
+  transform-origin: right;
+  transition: transform 0.8s linear;
+  z-index: 10;
+}
+
+.folder.closed .left {
+  transform: rotateY(180deg);
+  transform-origin: right;
+  transition: transform 0.8s linear;
+}
+
+@keyframes hideContent {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.folder {
+  transition: transform 0.8s ease-in-out;
+}
+
+.folder.closed {
+  transform: translateX(-25%);
+  /* opacity: 0; */
+}
+
+.caseFiles {
+  height: 95%;
+  width: 95%;
+}
+
+.cases {
+  background-color: rgb(239, 245, 204);
+  height: 100%;
+  width: 100%;
+  top: 0;
+  padding: 2em;
+  transform: translate(2%, -5%) rotate(-3deg);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  box-sizing: border-box;
+  transition: transform 1.2s ease-in-out;
+  z-index: 1;
+}
+
+.caseFiles::before {
+  content: '';
+  position: absolute;
+  width: 95%;
+  height: 95%;
+  top: 0;
+  background-color: rgb(239, 245, 204);
+  left: 0;
+  transform: translate(0%, 2%) rotate(-4deg);
+  z-index: 0;
+  box-shadow: 0 0 100px 0 rgba(0, 0, 0, 0.829);
+}
+
+.caseFiles::after {
+  content: '';
+  position: absolute;
+  width: 95%;
+  height: 95%;
+  top: 0;
+  background-color: rgb(239, 245, 204);
+  left: 0;
+  transform: translate(-2%, 4%) rotate(-5deg);
+  z-index: -1;
+  box-shadow: 0 0 100px 0 rgba(0, 0, 0, 0.829);
+}
+
+.closed .caseFiles::before,
+.closed .caseFiles::after {
+  transform: translate(0%, 5%) rotate(1deg);
+  transition: transform 0.2s ease-in-out;
+}
+
+.caseFiles::after,
+.caseFiles::before {
+  transition: transform 1.2s ease-in-out;
+}
+
+.closed .cases {
+  transform: translate(1%, -5%) rotate(1deg);
+  transition: transform 0.2s ease-in-out;
+}
+
+.cases .case {
+  display: flex;
+  align-items: start;
+  margin-bottom: 1em;
+  gap: 1em;
+  font-size: 1.1em;
+}
+
+.case > img {
+  border-radius: 1px;
+}
+.case > div > * {
+  margin: 0;
   padding: 0;
 }
