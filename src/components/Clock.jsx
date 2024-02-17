@@ -126,7 +126,13 @@ export default function Clock({ restart, allowAudio, gameOver, shouldRestart, se
       '0'
     )} mins, ${String(seconds).padStart(2, '0')} seconds`;
 
-    alert(`Time saved: ${formattedDuration}.\nThanks for playing, ${data.name}!`);
+    alert(
+      `Time saved: ${formattedDuration}.\nThanks for playing, ${
+        data.name
+      }!\n\n\nTop players:\n\n${data.top5.map(
+        (player, i) => `\n${i + 1}. ${player.name} (${player.duration / 1000} seconds)`
+      )}`
+    );
     getSessionID(true);
   };
 
