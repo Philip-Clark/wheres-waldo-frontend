@@ -26,10 +26,11 @@ const getSessionID = async (wipe) => {
   return sessionId;
 };
 
-export default function Clock({ restart, allowAudio, gameOver }) {
+export default function Clock({ restart, allowAudio, gameOver, shouldRestart, setShouldRestart }) {
   const [timer, setTimer] = React.useState(0);
-  const [timerRunning, setTimerRunning] = React.useState(true);
+  const [timerRunning, setTimerRunning] = React.useState(false);
   const [tickPlaying, setTickPlaying] = React.useState(false);
+  const clock = React.useRef(null);
 
   useEffect(() => {
     if (gameOver) {
@@ -55,6 +56,12 @@ export default function Clock({ restart, allowAudio, gameOver }) {
     setTimer(0);
     restart();
   };
+
+  useEffect(() => {
+    if (!shouldRestart) return;
+    handleRestart();
+    setShouldRestart(false);
+  }, [shouldRestart]);
 
   useEffect(() => {
     if (gameOver) return;
@@ -120,7 +127,7 @@ export default function Clock({ restart, allowAudio, gameOver }) {
   };
 
   return (
-    <div>
+    <div ref={clock}>
       <Speaker
         src="./audio/tick.mp3"
         volume={0.05}

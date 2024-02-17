@@ -33,8 +33,9 @@ const App = () => {
   const [imageSize, setImageSize] = React.useState({ x: 0, y: 0 });
   const [allowAudio, setAllowAudio] = React.useState(false);
   const [pencilSoundsPlay, setPencilSoundsPlay] = React.useState(false);
-  const [gameOver, setGameOver] = React.useState(false);
+  const [gameOver, setGameOver] = React.useState(true);
   const [zoom, setZoom] = React.useState(2);
+  const [shouldRestart, setShouldRestart] = React.useState(false);
 
   useEffect(() => {
     const handleZoom = (e) => {
@@ -59,8 +60,8 @@ const App = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const puzzles = await fetch(api + '/puzzles').then((res) => res.json());
-      const puzzle = puzzles[0];
+      if (!puzzleID) return;
+      const puzzle = await fetch(`${api}/puzzle/${puzzleID}`).then((res) => res.json());
       setPuzzle(puzzle);
       const waldoImage = await fetch(`${api}/puzzle/${puzzle._id}/imageURL`).then((res) =>
         res.json()
@@ -75,9 +76,10 @@ const App = () => {
       );
 
       setImageSize(imageSize);
+      setGameOver(false);
     }
     fetchData();
-  }, []);
+  }, [puzzleID]);
 
   useEffect(() => {
     if (foundCharacters.length === 0) return;
@@ -95,9 +97,12 @@ const App = () => {
           <SuspectList characters={characters} foundCharacters={foundCharacters} />
         </div>
       </div>
-      <div className="deco-folder">
-        <h1>Folder</h1>
-      </div>
+      <Folder
+        setPuzzleID={setPuzzleID}
+        puzzleID={puzzleID}
+        restart={handleRestart}
+        setShouldRestart={setShouldRestart}
+      />
 
       <div className="searchArea">
         <div id="polaroid" className="polaroid">
@@ -167,8 +172,13 @@ const App = () => {
         allowAudio={allowAudio}
       />
 
-      <Clock restart={handleRestart} allowAudio={allowAudio} gameOver={gameOver} />
-      <Folder />
+      <Clock
+        restart={handleRestart}
+        allowAudio={allowAudio}
+        gameOver={gameOver}
+        shouldRestart={shouldRestart}
+        setShouldRestart={setShouldRestart}
+      />
 
       <button onClick={handleAllowAudio} className="toggleAudio">
         {allowAudio ? 'pause' : 'play'} Audio

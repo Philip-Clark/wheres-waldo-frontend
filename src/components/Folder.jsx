@@ -3,9 +3,35 @@ import '../Folder.css';
 
 const api = import.meta.env.VITE_API_URL;
 
-export default function Folder() {
-  const [openState, setOpenState] = React.useState('closed');
+export default function Folder({ setPuzzleID, puzzleID, setShouldRestart }) {
+  const [openState, setOpenState] = React.useState('open');
   const [cases, setCases] = React.useState([]);
+  const folderHolder = React.useRef(null);
+
+  // Define the keyframes as an array of objects
+  const keyframes = [
+    { transform: 'translate(-5%, 2%) rotate(3deg)', zIndex: 0 },
+    {
+      transform: `translate(0, ${openState === 'open' ? '-105%' : '105%'}) rotate(0deg)`,
+      zIndex: 0,
+      offset: 0.3,
+    },
+    {
+      transform: `translate(0, ${openState === 'open' ? '-105%' : '105%'}) rotate(0deg)`,
+      zIndex: 1,
+      offset: 0.7,
+    },
+    { transform: 'translate(0, 0) rotate(0deg)', zIndex: 1 },
+  ];
+
+  // Define the animation options as an object
+  const keyframeOptions = {
+    duration: 1500, // in milliseconds
+    easing: 'ease-in-out', // or any other timing function
+    iterations: 1, // or any other number or 'infinite'
+    fill: 'forwards', // or any other option
+    delay: openState === 'closed' ? 800 : 0,
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,15 +43,32 @@ export default function Folder() {
   }, []);
 
   const handleClick = () => {
+    if (!puzzleID) return; // should no be able to close when no puzzle is selected
     setOpenState(openState === 'closed' ? 'open' : 'closed');
   };
 
+  useEffect(() => {
+    if (!folderHolder.current) return;
+    folderHolder.current.animate(keyframes, {
+      ...keyframeOptions,
+      direction: openState === 'open' ? 'normal' : 'reverse',
+    });
+  }, [openState, folderHolder]);
+
+  const handleOpenCase = (id) => {
+    setPuzzleID(id);
+    setOpenState('closed');
+    setTimeout(() => {
+      console.log('Opening case', id);
+      setShouldRestart(true);
+    }, 1500);
+  };
+
   return (
-    <div className="folderHolder">
+    <div className={`folderHolder  ${openState}`} ref={folderHolder}>
       <div className="backdrop"></div>
-      <div className={`folder ${openState}`} onClick={handleClick}>
+      <div className={`folder`} onClick={handleClick}>
         <div className="left">
-          <p>Left page</p>
           <div className="caseFiles">
             <div className="cases">
               {cases.map((c) => (
@@ -34,15 +77,20 @@ export default function Folder() {
                   <div>
                     <h3>{c.name}</h3>
                     <p>{c.characters.length} Suspects involved</p>
+                    <button
+                      onClick={() => {
+                        handleOpenCase(c._id);
+                      }}
+                    >
+                      Work on case
+                    </button>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-        <div className="right">
-          <p>Right page</p>
-        </div>
+        <div className="right"></div>
       </div>
     </div>
   );

@@ -181,6 +181,7 @@ body {
 .image > img {
   border-radius: 10px;
   border: solid grey 1px;
+  aspect-ratio: 1 / 1;
 }
 
 .magnifying-glass {
