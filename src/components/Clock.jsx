@@ -76,15 +76,12 @@ export default function Clock({ restart, allowAudio, gameOver, shouldRestart, se
         'Content-Type': 'application/json',
       },
     };
-    console.log(timerRunning);
 
     if (gameOver) {
       const endTime = async () => {
         const sessionId = await getSessionID();
-        console.log('🚀 ~ endTime ~ sessionId:', sessionId);
         const response = await fetch(`${api}/time/end/${sessionId}`, options);
         const data = await response.json();
-        console.log('🚀 ~ endTime ~ data:', data);
       };
       endTime();
       return;
@@ -93,22 +90,17 @@ export default function Clock({ restart, allowAudio, gameOver, shouldRestart, se
     if (timerRunning) return;
     const startTime = async () => {
       const sessionId = await getSessionID();
-      console.log('🚀 ~ useEffect ~ sessionId:', sessionId);
       const response = await fetch(`${api}/time/start/${sessionId}`, options);
       const data = await response.json();
-      console.log('🚀 ~ useEffect ~ data:', data);
     };
     startTime();
   }, [timerRunning, gameOver]);
 
   const handleSaveTime = async () => {
-    console.log('handleSaveTime');
-
     const sessionId = await getSessionID();
-    console.log('sessionId', sessionId);
+    if (!gameOver) return alert('Game is not over!\nPlease finish the game to log your time.');
 
     const name = prompt('Enter your name');
-    console.log('name', name);
 
     if (!name) return;
     const options = {
@@ -122,7 +114,19 @@ export default function Clock({ restart, allowAudio, gameOver, shouldRestart, se
     const data = await response.json();
 
     console.log(data);
+    if (!data.duration) return alert(`Error saving time:\n\n ${data}`);
 
+    const durationInSeconds = Math.floor(data.duration / 1000);
+    const hours = Math.floor(durationInSeconds / 3600);
+    const minutes = Math.floor((durationInSeconds % 3600) / 60);
+    const seconds = durationInSeconds % 60;
+
+    const formattedDuration = `${String(hours).padStart(2, '0')} hrs, ${String(minutes).padStart(
+      2,
+      '0'
+    )} mins, ${String(seconds).padStart(2, '0')} seconds`;
+
+    alert(`Time saved: ${formattedDuration}.\nThanks for playing, ${data.name}!`);
     getSessionID(true);
   };
 
