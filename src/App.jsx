@@ -69,7 +69,7 @@ const App = () => {
       setPuzzleID(puzzle._id);
       setWaldoImage(waldoImage);
 
-      setCharacters(puzzle.characters.sort(() => (Math.random() > 0.5 ? 1 : -1)));
+      setCharacters(puzzle.characters);
 
       const imageSize = await fetch(`${api}/puzzle/${puzzle._id}/imageSize`).then((res) =>
         res.json()
