@@ -120,14 +120,20 @@ export default function CharacterPopUp({
         {characters
           .filter((character) => !foundCharacters.includes(character.name))
           .map((character, index) => {
+            if (index == 0)
+              return (
+                <button onClick={() => handleCharacterSelect(character)} key={index} autoFocus>
+                  <h2>{character.name}</h2>
+                </button>
+              );
+
             return (
               <button onClick={() => handleCharacterSelect(character)} key={index}>
                 <h2>{character.name}</h2>
-                {/* <img src={`./images/${character}.png`} alt={character} /> */}
               </button>
             );
           })}
-        {characters.filter((character) => !foundCharacters.includes(character)).lenght > 0 && (
+        {characters.filter((character) => !foundCharacters.includes(character)).length > 0 && (
           <button onClick={() => setDisplayPopUp(false)}>Close</button>
         )}
       </div>
