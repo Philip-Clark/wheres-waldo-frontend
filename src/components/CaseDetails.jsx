@@ -46,7 +46,7 @@ export default function CaseDetails({ caseDetails, openState, handleOpenCase }) 
           <h2>Top Detectives on the case</h2>
           <ul className="times">
             {bestTimes &&
-              bestTimes.slice(0, 10).map((time, i) => (
+              bestTimes.slice(0, 5).map((time, i) => (
                 <li className="timeLog" key={i}>
                   <h3>{formatTime(time.duration)}</h3>
                   <p> | </p>
