@@ -13,7 +13,7 @@ export default function Folder({ setPuzzleID, puzzleID, setShouldRestart }) {
 
   // Define the keyframes as an array of objects
   const keyframes = [
-    { transform: 'translate(-5%, 2%) rotate(3deg)', zIndex: 0 },
+    { transform: 'translate(-2%, 2%) rotate(-5deg)', zIndex: 0 },
     {
       transform: `translate(0, ${openState === 'open' ? '-105%' : '105%'}) rotate(0deg)`,
       zIndex: 0,

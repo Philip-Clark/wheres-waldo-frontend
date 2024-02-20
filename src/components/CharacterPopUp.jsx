@@ -102,6 +102,7 @@ export default function CharacterPopUp({
       setSelectingCharacter(true);
       updateRect(event, { x: event.clientX, y: event.clientY }, image.current.img);
       setCursorPosition({ x: event.clientX, y: event.clientY });
+      console.log(event.clientY > window.innerHeight / 2 ? -1 : 1);
     });
   }, [image, imageSize]);
 
@@ -115,7 +116,12 @@ export default function CharacterPopUp({
     displayPopUp && (
       <div
         className="characterPopUp"
-        style={{ top: `${cursorPosition.y - 60}px`, left: `${cursorPosition.x + 60}px` }}
+        style={{
+          top: `${cursorPosition.y}px`,
+          left: `${cursorPosition.x - 200}px`,
+          transform:
+            cursorPosition.y > window.innerHeight / 2 ? 'translateY(-100%)' : 'translateY(0)',
+        }}
       >
         {characters
           .filter((character) => !foundCharacters.includes(character.name))

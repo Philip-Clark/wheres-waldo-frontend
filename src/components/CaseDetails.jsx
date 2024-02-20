@@ -25,32 +25,27 @@ export default function CaseDetails({ caseDetails, openState, handleOpenCase }) 
     <div className="caseDetails">
       {caseDetails && (
         <div>
-          <h1>Case Details</h1>
-          <hr />
           <p>
-            Case ID: #
+            Case Name: {caseDetails.name} ---- Case ID: #
             {parseInt(Math.random().toPrecision(8) * 100000)
               .toString()
               .padStart(5, '0')}
           </p>
-          <p>Case Name: {caseDetails.name}</p>
           <p>Suspects involved: </p>
           <ul>
             {caseDetails.characters.map((c) => (
               <li key={c._id}>{c.name}</li>
             ))}
           </ul>
-          <br />
           <hr />
-          <br />
-          <h2>Top Detectives on the case</h2>
+          <h3>Top Detectives on the case</h3>
           <ul className="times">
             {bestTimes &&
               bestTimes.slice(0, 5).map((time, i) => (
                 <li className="timeLog" key={i}>
-                  <h3>{formatTime(time.duration)}</h3>
+                  <p>{formatTime(time.duration)}</p>
                   <p> | </p>
-                  <h3>{time.name}</h3>
+                  <p>{time.name}</p>
                 </li>
               ))}
           </ul>

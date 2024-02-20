@@ -91,6 +91,11 @@ const App = () => {
 
   return (
     <div className="App">
+      <div className="mobileBlocker">
+        <h2>
+          Sorry, this site does not support screen sizes under 600px in width ( mobile devices )
+        </h2>
+      </div>
       <div className="dataArea">
         <div className="notepad">
           <h1>Suspects to find</h1>
