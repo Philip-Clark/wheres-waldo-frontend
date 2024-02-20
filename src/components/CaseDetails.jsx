@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 const api = import.meta.env.VITE_API_URL;
-export default function CaseDetails({ caseDetails, openState }) {
+export default function CaseDetails({ caseDetails, openState, handleOpenCase }) {
   const [bestTimes, setBestTimes] = React.useState([]);
 
   useEffect(() => {
@@ -26,6 +26,7 @@ export default function CaseDetails({ caseDetails, openState }) {
       {caseDetails && (
         <div>
           <h1>Case Details</h1>
+          <hr />
           <p>
             Case ID: #
             {parseInt(Math.random().toPrecision(8) * 100000)
@@ -39,6 +40,9 @@ export default function CaseDetails({ caseDetails, openState }) {
               <li key={c._id}>{c.name}</li>
             ))}
           </ul>
+          <br />
+          <hr />
+          <br />
           <h2>Top Detectives on the case</h2>
           <ul className="times">
             {bestTimes &&
@@ -50,6 +54,16 @@ export default function CaseDetails({ caseDetails, openState }) {
                 </li>
               ))}
           </ul>
+
+          <div className="openCase">
+            <button
+              onClick={() => {
+                handleOpenCase(caseDetails._id);
+              }}
+            >
+              Work on Case
+            </button>
+          </div>
         </div>
       )}
     </div>

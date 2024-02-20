@@ -89,7 +89,11 @@ export default function Folder({ setPuzzleID, puzzleID, setShouldRestart }) {
           </div>
         </div>
         <div className="right">
-          <CaseDetails caseDetails={caseDetails} openState={openState} />
+          <CaseDetails
+            caseDetails={caseDetails}
+            openState={openState}
+            handleOpenCase={handleOpenCase}
+          />
         </div>
       </div>
     </div>
