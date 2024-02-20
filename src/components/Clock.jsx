@@ -107,7 +107,9 @@ export default function Clock({
     const sessionId = await getSessionID();
     if (!gameOver) return alert('Game is not over!\nPlease finish the game to log your time.');
 
-    const name = prompt('Enter your name');
+    const name = prompt(
+      'Enter your name\n\n\n⚠️⚠️⚠️⚠️⚠️\n Any name that is deemed inappropriate will be removed from the leaderboard. \nIf you wish to appear on the leaderboard, then use a safe name that can not be considered inappropriate, edgy, or suggestive in any way at all.\n\n'
+    );
 
     if (!name) return;
     const options = {
