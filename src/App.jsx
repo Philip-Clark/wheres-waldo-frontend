@@ -178,6 +178,7 @@ const App = () => {
         gameOver={gameOver}
         shouldRestart={shouldRestart}
         setShouldRestart={setShouldRestart}
+        puzzleId={puzzleID}
       />
 
       <button onClick={handleAllowAudio} className="toggleAudio">

@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
 import '../Folder.css';
+import CaseFiles from './CaseFiles';
+import CaseDetails from './CaseDetails';
 
 const api = import.meta.env.VITE_API_URL;
 
 export default function Folder({ setPuzzleID, puzzleID, setShouldRestart }) {
   const [openState, setOpenState] = React.useState('open');
-  const [cases, setCases] = React.useState([]);
   const folderHolder = React.useRef(null);
+  const [cases, setCases] = React.useState([]);
+  const [caseDetails, setCaseDetails] = React.useState(null);
 
   // Define the keyframes as an array of objects
   const keyframes = [
@@ -42,8 +45,10 @@ export default function Folder({ setPuzzleID, puzzleID, setShouldRestart }) {
     fetchData();
   }, []);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
     if (!puzzleID) return; // should no be able to close when no puzzle is selected
+    console.log(e.target.tagName);
+    if (e.target.tagName !== 'DIV') return; // only close when clicking on the folder itself, not buttons
     setOpenState(openState === 'closed' ? 'open' : 'closed');
   };
 
@@ -59,9 +64,12 @@ export default function Folder({ setPuzzleID, puzzleID, setShouldRestart }) {
     setPuzzleID(id);
     setOpenState('closed');
     setTimeout(() => {
-      console.log('Opening case', id);
       setShouldRestart(true);
     }, 1500);
+  };
+
+  const handleViewDetails = (id) => {
+    setCaseDetails(cases.find((c) => c._id === id));
   };
 
   return (
@@ -69,28 +77,20 @@ export default function Folder({ setPuzzleID, puzzleID, setShouldRestart }) {
       <div className="backdrop"></div>
       <div className={`folder`} onClick={handleClick}>
         <div className="left">
-          <div className="caseFiles">
-            <div className="cases">
-              {cases.map((c) => (
-                <div className="case" key={c._id}>
-                  <img src={api + c.imageURL} alt={c.name} width={100} />
-                  <div>
-                    <h3>{c.name}</h3>
-                    <p>{c.characters.length} Suspects involved</p>
-                    <button
-                      onClick={() => {
-                        handleOpenCase(c._id);
-                      }}
-                    >
-                      Work on case
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="cover">
+            <h1>Case Files</h1>
+          </div>
+          <div className="inner">
+            <CaseFiles
+              cases={cases}
+              handleOpenCase={handleOpenCase}
+              handleViewDetails={handleViewDetails}
+            />
           </div>
         </div>
-        <div className="right"></div>
+        <div className="right">
+          <CaseDetails caseDetails={caseDetails} openState={openState} />
+        </div>
       </div>
     </div>
   );

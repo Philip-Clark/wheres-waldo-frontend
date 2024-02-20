@@ -26,7 +26,14 @@ const getSessionID = async (wipe) => {
   return sessionId;
 };
 
-export default function Clock({ restart, allowAudio, gameOver, shouldRestart, setShouldRestart }) {
+export default function Clock({
+  restart,
+  allowAudio,
+  gameOver,
+  shouldRestart,
+  setShouldRestart,
+  puzzleId,
+}) {
   const [timer, setTimer] = React.useState(0);
   const [timerRunning, setTimerRunning] = React.useState(false);
   const [tickPlaying, setTickPlaying] = React.useState(false);
@@ -110,29 +117,11 @@ export default function Clock({ restart, allowAudio, gameOver, shouldRestart, se
       },
     };
 
-    const response = await fetch(`${api}/time/save/${sessionId}/${name}`, options);
+    const response = await fetch(`${api}/time/save/${sessionId}/${name}/${puzzleId}`, options);
     const data = await response.json();
 
     console.log(data);
     if (!data.duration) return alert(`Error saving time:\n\n ${data}`);
-
-    const durationInSeconds = Math.floor(data.duration / 1000);
-    const hours = Math.floor(durationInSeconds / 3600);
-    const minutes = Math.floor((durationInSeconds % 3600) / 60);
-    const seconds = durationInSeconds % 60;
-
-    const formattedDuration = `${String(hours).padStart(2, '0')} hrs, ${String(minutes).padStart(
-      2,
-      '0'
-    )} mins, ${String(seconds).padStart(2, '0')} seconds`;
-
-    alert(
-      `Time saved: ${formattedDuration}.\nThanks for playing, ${
-        data.name
-      }!\n\n\nTop players:\n\n${data.top5.map(
-        (player, i) => `\n${i + 1}. ${player.name} (${player.duration / 1000} seconds)`
-      )}`
-    );
     getSessionID(true);
   };
 

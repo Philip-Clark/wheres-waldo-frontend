@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 export default function Speaker({ src, volume, playing, allowAudio, loop, onended }) {
-  const [audio, setAudio] = useState(null);
+  const [audio, setAudio] = useState(false);
 
   useEffect(() => {
     const newAudio = new Audio(src);

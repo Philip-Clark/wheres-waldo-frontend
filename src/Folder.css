@@ -81,13 +81,43 @@
     #fbeb96;
 }
 
-.folder .left > * {
+.folder .left .inner {
+  margin-top: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   transition: opacity 0s linear 1.9s;
   opacity: 1;
 }
-.closed .folder .left > * {
+.closed .folder .left .inner {
   transition: opacity 0s linear 0.4s;
   opacity: 0;
+}
+
+.folder .left .cover {
+  transition: opacity 0s linear 1.9s;
+  opacity: 0;
+  transform: scaleX(-1);
+}
+
+.cover {
+  width: 100%;
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+  font-size: 2em;
+  margin-top: 3em;
+}
+
+.cover h1 {
+  margin: 0;
+  padding: 0;
+}
+
+.closed .folder .left .cover {
+  transition: opacity 0s linear 0.4s;
+  opacity: 1;
 }
 
 .folder .left {
@@ -101,15 +131,6 @@
   transform: rotateY(180deg);
   transform-origin: right;
   transition: transform 0.8s linear;
-}
-
-@keyframes hideContent {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
 }
 
 .folder {
@@ -165,4 +186,45 @@
 .case > div > * {
   margin: 0;
   padding: 0;
+}
+
+.caseDetails {
+  font-family: 'Times New Roman', Times, serif;
+  width: 90%;
+  height: 90%;
+  background-color: rgb(239, 245, 204);
+  padding: 2em;
+  transform: translate(4%, 2%) rotate(3deg);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+}
+
+.left button {
+  margin: 0 0.5em;
+  border-radius: 10px;
+  border: dashed black 1px;
+  padding: 0.2em 1em;
+  background-color: rgb(239, 245, 204);
+}
+
+.timeLog {
+  display: grid;
+  grid-template-columns: 0fr 0fr 5fr;
+  gap: 1em;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.timeLog > * {
+  margin: 0;
+  padding: 0;
+}
+
+.times {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
